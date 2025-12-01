@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Galerie | Winterlight Festival</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Krona+One&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <style>
+        /* Grundstil & Layout */
+        body { 
+            font-family: 'Krona One', sans-serif; 
+            margin: 0; 
+            padding: 0; 
+            min-height: 100vh; 
+            background-color: #0d0d0d; 
+            color: #f0f0f0; 
+            text-align: center; 
+            line-height: 1.6; 
+            position: relative; 
+        }
+        .hintergrund-bild { 
+            position: absolute; top: 0; left: 0; width: 100%; min-height: 100%; z-index: -1; 
+            background-image: url('Winterlight Festival.png'); 
+            background-size: cover; background-position: center center;
+            background-repeat: no-repeat; background-attachment: scroll; filter: brightness(1.5); 
+        }
+        .container { 
+            width: 90%; 
+            max-width: 1200px; 
+            margin: 0 auto; 
+            padding: 20px 0; 
+        }
+        
+        /* Navigation (Standard) */
+        header { background-color: rgba(0, 0, 0, 0.6); padding: 20px 0; border-bottom: 5px solid #ff004c; }
+        .navigation { text-align: right; padding-right: 20px; }
+        .nav-button { display: inline-block; background-color: #ff004c; color: black; padding: 15px 25px; margin: 0 5px; text-decoration: none; text-transform: uppercase; font-weight: 900; letter-spacing: 1px; border-radius: 0; border: none; transition: background-color 0.2s, transform 0.2s; box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); }
+        .nav-button:hover { background-color: #00fff2; color: black; transform: translateY(-5px); box-shadow: 0 0 20px #00fff2; }
+        .galerie-button { background-color: #00fff2; color: black; border: 2px solid #ff004c; }
+
+        /* Hauptinhalt */
+        .main-content { 
+            background: rgba(13, 13, 13, 0.95); 
+            padding: 50px 20px; 
+            min-height: 70vh; 
+            margin-top: 50px; 
+            border: 2px solid #ff004c; 
+        }
+        h2 { 
+            color: #00fff2; 
+            text-transform: uppercase; 
+            letter-spacing: 2px; 
+            margin-top: 0; 
+            padding-bottom: 20px; 
+            border-bottom: 2px solid #ff004c; 
+        }
+        
+        /* GALERIE SPEZIFISCHES CSS */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Responsive Spalten */
+            gap: 20px;
+            padding: 40px 0;
+        }
+
+        .gallery-item {
+            position: relative;
+            overflow: hidden; /* Wichtig für den Zoom-Effekt */
+            border: 3px solid #1a1a1a;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+            transition: all 0.3s ease-in-out;
+            cursor: pointer;
+            aspect-ratio: 1 / 1; /* Quadratformat für Kacheln */
+        }
+        
+        /* Animation: Rahmen, Schatten und Skalierung der Kachel */
+        .gallery-item:hover {
+            border-color: #00fff2; /* Neon-Blau beim Hover */
+            transform: scale(1.05); /* Leichte Kachel-Skalierung */
+            box-shadow: 0 0 25px rgba(0, 255, 242, 0.8), 0 0 5px #ff004c; /* Starker Neon-Schatten */
+        }
+
+        /* Platzhalter für Bilder (Muss durch Ihre Bilder ersetzt werden) */
+        .gallery-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Bild füllt Kachel aus */
+            transition: transform 0.4s ease-in-out; /* Zoom-Effekt Animation */
+        }
+        
+        /* Zoom-Effekt auf das Bild im Inneren der Kachel */
+        .gallery-item:hover .gallery-image {
+            transform: scale(1.15) rotate(1deg); /* Bild zoomt leicht rein und dreht sich minimal */
+        }
+
+        /* Bild-Titel / Overlay */
+        .image-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(255, 0, 76, 0.8); /* Transparenter roter Hintergrund */
+            color: white;
+            padding: 10px 5px;
+            font-size: 0.8em;
+            text-transform: uppercase;
+            font-weight: bold;
+            opacity: 0;
+            transform: translateY(100%);
+            transition: opacity 0.3s, transform 0.3s;
+        }
+
+        /* Einblenden des Titels beim Hover */
+        .gallery-item:hover .image-caption {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Platzhalter für leere Kacheln (damit sie sichtbar sind) */
+        .placeholder-text {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            background-color: #2a2a2a;
+            color: #ff004c;
+            font-size: 1.2em;
+            padding: 10px;
+        }
+
+        /* Footer (Unverändert) */
+        footer { margin-top: 50px; padding: 20px 0; background-color: rgba(0, 0, 0, 0.6); }
+        .footer-legal-links a { color: #f0f0f0; text-decoration: none; margin: 0 10px; font-size: 0.8em; }
+        .copyright { font-size: 0.7em; color: #888; margin-top: 10px; }
+        
+    </style>
+</head>
+<body>
+
+    <div class="hintergrund-bild"></div>
+
+    <header>
+        <div class="container">
+            <nav class="navigation">
+                <a href="index.html" class="nav-button">Home</a> 
+                <a href="shop.html" class="nav-button">Shop / Merch</a>
+                <a href="Ticket.Html" class="nav-button">TICKETS</a>
+                <a href="galerie.html" class="nav-button galerie-button">GALERIE</a>
+                <a href="lineup.html" class="nav-button">LINEUP</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="main-content">
+            <div class="container">
+                <h2><i class="fas fa-camera"></i> WIR FEIERN | DIE BESTEN MOMENTE</h2>
+                
+                <p style="font-family: sans-serif; color: #ccc;">Eine Auswahl der härtesten und euphorischsten Momente der letzten Jahre. Klicke auf eine Kachel für eine größere Ansicht!</p>
+                
+                <div class="gallery-grid">
+                    
+                    <a href="bild1.jpg" target="_blank" class="gallery-item">
+                        <img src="bild1.jpg" alt="Festival Main Stage" class="gallery-image">
+                        <div class="image-caption">Main Stage Abriss 2024</div>
+                    </a>
+                    
+                    <a href="#" target="_blank" class="gallery-item">
+                        <div class="placeholder-text">
+                            <i class="fas fa-compact-disc"></i> DJ-Pult Action
+                        </div>
+                        <div class="image-caption">Dein Bild kommt hierhin</div>
+                    </a>
+                    
+                    <a href="#" target="_blank" class="gallery-item">
+                        <div class="placeholder-text">
+                            <i class="fas fa-fire"></i> Lichtshow
+                        </div>
+                        <div class="image-caption">Lichtshow & Feuerwerk</div>
+                    </a>
+
+                    <a href="#" target="_blank" class="gallery-item">
+                        <div class="placeholder-text">
+                            <i class="fas fa-users"></i> Crowd Euphorie
+                        </div>
+                        <div class="image-caption">Ekstase in der Menge</div>
+                    </a>
+
+                    <a href="#" target="_blank" class="gallery-item">
+                        <div class="placeholder-text">
+                            <i class="fas fa-hand-spock"></i> Festival-Vibes
+                        </div>
+                        <div class="image-caption">Gute Stimmung</div>
+                    </a>
+
+                    <a href="#" target="_blank" class="gallery-item">
+                        <div class="placeholder-text">
+                            <i class="fas fa-beer"></i> Chill Area
+                        </div>
+                        <div class="image-caption">Chill-Out und Bar</div>
+                    </a>
+
+                    <a href="#" target="_blank" class="gallery-item">
+                        <div class="placeholder-text">
+                            <i class="fas fa-snowman"></i> Winter-Dekoration
+                        </div>
+                        <div class="image-caption">Winter Deko</div>
+                    </a>
+
+                    <a href="#" target="_blank" class="gallery-item">
+                        <div class="placeholder-text">
+                            <i class="fas fa-globe"></i> Gesamtansicht
+                        </div>
+                        <div class="image-caption">Gesamtansicht vom Gelände</div>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-legal-links">
+                <a href="impressum.html" class="nav-button">IMPRESSUM</a>
+                <span>|</span>
+                <a href="datenschutz.html" class="nav-button">DATENSCHUTZ</a>
+            </div>
+
+            <p class="copyright">
+                (c) WinterlightFestival | WLF Event Management & Production GmbH
+            </p>
+        </div>
+    </footer>
+	<div class="audio-player">
+        <span><i class="fas fa-compact-disc"></i> Festival Mix:</span>
+        <audio controls loop>
+            <source src="mix.mp3" type="audio/mpeg">
+            Ihr Browser unterstützt das Audio-Element nicht.
+        </audio>
+    </div>
+</body>
+</html>

@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lineup 2025 | Winterlight Festival</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Krona+One&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <style>
+        /* Grundstil & Layout */
+        body { 
+            font-family: 'Krona One', sans-serif; 
+            margin: 0; 
+            padding: 0; 
+            min-height: 100vh; 
+            background-color: #0d0d0d; 
+            color: #f0f0f0; 
+            text-align: center; 
+            line-height: 1.6; 
+            position: relative; 
+        }
+        .hintergrund-bild { 
+            position: absolute; top: 0; left: 0; width: 100%; min-height: 100%; z-index: -1; 
+            background-image: url('Winterlight Festival.png'); 
+            background-size: cover; background-position: center center;
+            background-repeat: no-repeat; background-attachment: scroll; filter: brightness(1.5); 
+        }
+        .container { 
+            width: 90%; 
+            max-width: 1200px; 
+            margin: 0 auto; 
+            padding: 20px 0; 
+        }
+        
+        /* Navigation (Unverändert) */
+        header { background-color: rgba(0, 0, 0, 0.6); padding: 20px 0; border-bottom: 5px solid #ff004c; }
+        .navigation { text-align: right; padding-right: 20px; }
+        .nav-button { display: inline-block; background-color: #ff004c; color: black; padding: 15px 25px; margin: 0 5px; text-decoration: none; text-transform: uppercase; font-weight: 900; letter-spacing: 1px; border-radius: 0; border: none; transition: background-color 0.2s, transform 0.2s; box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); }
+        .nav-button:hover { background-color: #00fff2; color: black; transform: translateY(-5px); box-shadow: 0 0 20px #00fff2; }
+        .lineup-button { background-color: #00fff2; color: black; border: 2px solid #ff004c; }
+
+        /* Hauptinhalt (Unverändert) */
+        .main-content { background: rgba(13, 13, 13, 0.95); padding: 50px 20px; min-height: 70vh; margin-top: 50px; border: 2px solid #00fff2; }
+        h2 { color: #00fff2; text-transform: uppercase; letter-spacing: 2px; margin-top: 0; padding-bottom: 20px; border-bottom: 2px solid #ff004c; }
+        .lineup-container { margin-top: 30px; display: flex; flex-wrap: wrap; gap: 20px; justify-content: center; }
+        .day-card { background-color: #1a1a1a; border: 1px solid #ff004c; padding: 20px; flex: 1 1 45%; min-width: 300px; text-align: left; box-shadow: 0 0 15px rgba(255, 0, 76, 0.3); }
+        .day-card h3 { color: #ff004c; text-transform: uppercase; margin-top: 0; padding-bottom: 10px; border-bottom: 2px solid #00fff2; font-size: 1.5em; }
+        .stage-section { margin-top: 25px; }
+        .stage-section h4 { color: #00fff2; background-color: #333; padding: 8px 10px; margin: 15px 0 10px 0; text-transform: uppercase; font-size: 1.1em; }
+
+        /* Künstler-Liste mit Bio-Button */
+        .artist-list { list-style: none; padding: 0; margin: 0; font-family: sans-serif; }
+        .artist-list li { 
+            padding: 10px 0; 
+            border-bottom: 1px dashed #333; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: stretch; 
+        }
+        .artist-info-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer; 
+        }
+        .artist-info-row:hover .artist-name strong {
+            color: #00fff2;
+        }
+        
+        .artist-name { flex-grow: 1; }
+        .artist-name strong { font-size: 1.1em; color: #f0f0f0; transition: color 0.2s; }
+        .artist-genre { font-size: 0.8em; color: #aaa; }
+        .artist-time { color: #ff004c; font-weight: bold; margin-left: 15px; }
+        .headliner strong { color: #00fff2; font-size: 1.3em; text-shadow: 0 0 5px rgba(0, 255, 242, 0.6); }
+
+        /* Meet & Greet AKTEURE */
+        .meet-greet-act {
+            border: 1px solid #00fff2 !important; 
+            box-shadow: 0 0 10px rgba(0, 255, 242, 0.5); 
+            position: relative;
+        }
+        
+        /* Meet & Greet Icon (kleines M&G-Label) */
+        .meet-greet-act .artist-info-row::before {
+            content: "M&G";
+            position: absolute;
+            top: -5px;
+            left: -10px;
+            background-color: #ff004c;
+            color: black;
+            padding: 2px 5px;
+            font-size: 0.7em;
+            font-weight: 900;
+            border-radius: 3px;
+            z-index: 10;
+        }
+
+        /* Hover-Effekt für M&G Acts */
+        .meet-greet-act .artist-info-row:hover .artist-name strong {
+            color: #ff004c; 
+            text-shadow: 0 0 15px #ff004c; 
+        }
+
+        /* Bio-Popup-Sektion */
+        .bio-popup {
+            background-color: #2a2a2a;
+            padding: 15px;
+            margin-top: 10px;
+            border-left: 3px solid #ff004c;
+            display: none; 
+            animation: fadeIn 0.5s;
+            font-family: sans-serif;
+            font-size: 0.9em;
+            text-align: left;
+        }
+        .bio-popup h5 { color: #00fff2; margin: 0 0 5px 0; text-transform: uppercase; }
+        
+        /* Animation für sanftes Einblenden */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Meet & Greet Sektion und Disclaimer (Unverändert) */
+        .meet-greet { background-color: #333; padding: 15px; margin: 30px 0; border: 2px dashed #00fff2; }
+        .meet-greet h3 { color: #00fff2; border-bottom: none; font-size: 1.2em; margin-top: 0; }
+        .disclaimer { margin-top: 40px; font-size: 0.8em; color: #aaa; font-family: sans-serif; }
+        
+    </style>
+</head>
+<body>
+
+    <div class="hintergrund-bild"></div>
+
+    <header>
+        <div class="container">
+            <nav class="navigation">
+               <nav class="navigation">
+                <a href="index.html" class="nav-button">Home</a> 
+                <a href="shop.html" class="nav-button">Shop / Merch</a>
+                <a href="Ticket.Html" class="nav-button">TICKETS</a>
+                <a href="galerie.html" class="nav-button">Galerie</a>
+                <a href="lineup.html" class="nav-button lineup-button">LINEUP</a> </nav>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="main-content">
+            <div class="container">
+                <h2>DAS LINEUP | 24. - 26. DEZEMBER 2025</h2>
+                
+                <p style="font-family: sans-serif; color: #ccc;">Drei Tage der elektronischen Härte: Hardstyle, Hardcore, Trance und Techno auf vier Floors!</p>
+                
+                <div class="meet-greet">
+                    <h3><i class="fas fa-handshake"></i> EXKLUSIVES MEET & GREET</h3>
+                    <p>
+                        Die Acts, die mit einem **blauen Rahmen** markiert sind, nehmen am Meet & Greet teil! 
+                        Sichere dir die Chance, deine Lieblings-DJs persönlich zu treffen! Details und Zeiten werden kurz vor dem Festival in der App bekannt gegeben.
+                    </p>
+                </div>
+
+                <div class="lineup-container">
+
+                    <div class="day-card" style="flex: 1 1 100%;">
+                        <h3><i class="fas fa-gift"></i> MITTWOCH, 24. DEZEMBER (OPENING NIGHT)</h3>
+                        
+                        <div style="display: flex; gap: 20px; flex-wrap: wrap;">
+                            
+                            <div class="stage-section" style="flex: 1 1 45%;">
+                                <h4><i class="fas fa-bolt"></i> FLOOR 1: HARDSTYLE / RAW</h4>
+                                <ul class="artist-list">
+                                    <li class="headliner meet-greet-act">
+                                        <div class="artist-info-row" onclick="toggleBio('bio-headhunterz')">
+                                            <span class="artist-name">
+                                                <strong>HEADHUNTERZ</strong><br>
+                                                <span class="artist-genre">Euphoric Hardstyle (Klicken für Info)</span>
+                                            </span>
+                                            <span class="artist-time">00:30 - 02:00</span>
+                                        </div>
+                                        <div class="bio-popup" id="bio-headhunterz">
+                                            <h5>Headhunterz</h5>
+                                            <p>Willem Rebergen, besser bekannt als Headhunterz, ist eine Ikone des Hardstyle, der das Genre mit melodischen Hymnen und kraftvollen Kicks prägte. Sein Set verspricht Nostalgie und absolute Peak-Time-Energie.</p>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="artist-info-row" onclick="toggleBio('bio-ran-d')">
+                                            <span class="artist-name">
+                                                <strong>RAN-D</strong><br>
+                                                <span class="artist-genre">Hardstyle / Rawphoric (Klicken für Info)</span>
+                                            </span>
+                                            <span class="artist-time">22:45 - 00:15</span>
+                                        </div>
+                                        <div class="bio-popup" id="bio-ran-d">
+                                            <h5>Ran-D</h5>
+                                            <p>Randall "Ran-D" van der Maas ist eine feste Größe der Hardstyle-Szene, bekannt für seinen kraftvollen Sound, der epische Melodien mit rohen Elementen verbindet. Hits wie "Zombie" und "Hurricane" machen seine Sets zu einem Highlight.</p>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="artist-info-row" onclick="toggleBio('bio-reversebass')">
+                                            <span class="artist-name">
+                                                <strong>REVERSE BASS</strong><br>
+                                                <span class="artist-genre">Early Hardstyle Classics (Klicken für Info)</span>
+                                            </span>
+                                            <span class="artist-time">21:00 - 22:30</span>
+                                        </div>
+                                        <div class="bio-popup" id="bio-reversebass">
+                                            <h5>Reverse Bass</h5>
+                                            <p>Eine Zeitreise zurück zu den Wurzeln! Reverse Bass zelebriert die goldenen Jahre des Hardstyle mit den besten Klassikern und dem ikonischen Reverse-Bass-Sound.</p>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                            
+                            <div class="stage-section" style="flex: 1 1 45%;">
+                                <h4><i class="fas fa-music"></i> FLOOR 2: TRANCE / EDM</h4>
+                                <ul class="artist-list">
+                                    <li class="headliner meet-greet-act">
+                                        <div class="artist-info-row" onclick="toggleBio('bio-arminvanbuuren')">
+                                            <span class="artist-name">
+                                                <strong>ARMIN VAN BUUREN</strong><br>
+                                                <span class="artist-genre">Progressive & Uplifting Trance (Klicken für Info)</span>
+                                            </span>
+                                            <span class="artist-time">23:00 - 01:00</span>
+                                        </div>
+                                        <div class="bio-popup" id="bio-arminvanbuuren">
+                                            <h5>Armin van Buuren</h5>
+                                            <p>Die niederländische Trance-Legende und Host von "A State of Trance". Armin van Buuren ist bekannt für seine emotionalen, euphorisierenden Sets, die Progressive, Uplifting und Vocal Trance vereinen.</p>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="artist-info-row" onclick="toggleBio('bio-atb')">
+                                            <span class="artist-name">
+                                                <strong>ATB</strong><br>
+                                                <span class="artist-genre">Ambient Trance / Dream Dance (Klicken für Info)</span>
+                                            </span>
+                                            <span class="artist-time">21:30 - 22:45</span>
+                                        </div>
+                                        <div class="bio-popup" id="bio-atb">
+                                            <h5>ATB (André Tanneberger)</h5>
+                                            <p>Der deutsche Trance-Titan, bekannt für Hits wie "9 PM (Till I Come)" und "Ecstasy". ATB bringt eine melancholische, aber tanzbare Tiefe in seine Sets, die Trance-Fans seit Jahrzehnten lieben.</p>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="artist-info-row" onclick="toggleBio('bio-sunriserhythm')">
+                                            <span class="artist-name">
+                                                <strong>SUNRISE RHYTHM</strong><br>
+                                                <span class="artist-genre">Melodic EDM (Klicken für Info)</span>
+                                            </span>
+                                            <span class="artist-time">20:00 - 21:15</span>
+                                        </div>
+                                        <div class="bio-popup" id="bio-sunriserhythm">
+                                            <h5>Sunrise Rhythm</h5>
+                                            <p>Sunrise Rhythm ist der perfekte Opener für den EDM-Floor. Ihre Sets sind geprägt von uplifting Melodien und einem positiven Vibe, der jeden Besucher in Festivalstimmung bringt.</p>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="day-card" style="flex: 1 1 100%;">
+                        <h3><i class="fas fa-calendar-check"></i> DONNERSTAG, 25. DEZEMBER</h3>
+                        
+                        <div style="display: flex; gap: 20px; flex-wrap: wrap;">
+                            
+                            <div class="stage-section" style="flex: 1 1 45%;">
+                                <h4><i class="fas fa-bolt"></i> FLOOR 3: HARDCORE EXTREME</h4>
+                                <ul class="artist-list">
+                                    <li class="headliner">
+                                        <div class="artist-info-row" onclick="toggleBio('bio-angerfist')">
+                                            <span class="artist-name">
+                                                <strong>ANGERFIST</strong><br>
+                                                <span class="artist-genre">Mainstream Hardcore (Klicken für Info)</span>
+                                            </span>
+                                            <span class="artist-time">02:30 - 04:00</span>
+                                        </div>
+                                        <div class="bio-popup" id="bio-angerfist">
+                                            <h5>Angerfist</h5>
+                                            <p>Der maskierte Mann des Hardcore! Angerfist ist der unangefochtene König des Mainstream Hardcore. Mit seiner unverwechselbaren Maske liefert er ein Set voller roher Energie und ikonischer Kicks.</p>
+                                        </div>
+                                    </li>
+                                    <li class="meet-greet-act">
+                                        <div class="artist-info-row" onclick="toggleBio('bio-missk8')">
+                                            <span class="artist-name">
+                                                <strong>MISS K8</strong><br>
+                                                <span class="artist-genre">Mainstream Hardcore / Gabber (Klicken für Info)</span>
+                                            </span>
+                                            <span class="artist-time">00:45 - 02:15</span>
+                                        </div>
+                                        <div class="bio-popup" id="bio-missk8">
+                                            <h5>Miss K8</h5>
+                                            <p>Die "Göttin der Härte" aus der Ukraine. Miss K8 hat sich mit ihrem aggressiven, schnellen Stil und Produktionen wie "Raiders of Rampage" einen festen Platz in der Hardcore-Elite gesichert.</p>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="artist-info-row" onclick="toggleBio('bio-drpeacock')">
+                                            <span class="artist-name">
+                                                <strong>DR. PEACOCK</strong><br>
+                                                <span class="artist-genre">Frenchcore (Klicken für Info)</span>
+                                            </span>
+                                            <span class="artist-time">23:00 - 00:30</span>
+                                        </div>
+                                        <div class="bio-popup" id="bio-drpeacock">
+                                            <h5>Dr. Peacock</h5>
+                                            <p>Der französische Frenchcore-Meister ist bekannt für seine Geschwindigkeit und seinen einzigartigen, fröhlichen und zugleich harten Stil. Er kombiniert verrückte Melodien mit gnadenlosen Kicks. Ein Set, das pure Energie verspricht!</p>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="artist-info-row" onclick="toggleBio('bio-ladykrush')">
+                                            <span class="artist-name">
+                                                <strong>LADY KRUSH</strong><br>
+                                                <span class="artist-genre">Industrial Hardcore (Klicken für Info)</span>
+                                            </span>
+                                            <span class="artist-time">21:30 - 22:45</span>
+                                        </div>
+                                        <div class="bio-popup" id="bio-ladykrush">
+                                            <h5>Lady Krush</h5>
+                                            <p>Lady Krush hat sich mit einem Sound aus dunkel-industriellen Texturen und donnernden 4/4-Beats an die Spitze des Industrial Hardcore gespielt. Ihre Sets sind düster, atmosphärisch und intensiv.</p>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                            
+                            <div class="stage-section" style="flex: 1 1 45%;">
+                                <h4><i class="fas fa-headphones-alt"></i> FLOOR 4: INDUSTRIAL TECHNO / MINIMAL</h4>
+                                <ul class="artist-list">
+                                    <li class="headliner meet-greet-act">
+                                        <div class="artist-info-row" onclick="toggleBio('bio-amelielens')">
+                                            <span class="artist-name">
+                                                <strong>AMELIE LENS</strong><br>
+                                                <span class="artist-genre">Peak Time Driving Techno (Klicken für Info)</span>
+                                            </span>
+                                            <span class="artist-time">01:30 - 03:00</span>
+                                        </div>
+                                        <div class="bio-popup" id="bio-amelielens">
+                                            <h5>Amelie Lens</h5>
+                                            <p>Die belgische Techno-Königin und Gründerin des Labels Lenske. Amelie Lens ist eine der weltweit führenden Acts im Peak Time Driving Techno. Ihre Sets sind schnell, hart und hypnotisch. Ein absoluter Headliner für alle Techno-Fans.</p>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="artist-info-row" onclick="toggleBio('bio-brutalismus3000')">
+                                            <span class="artist-name">
+                                                <strong>BRUTALISMUS 3000</strong><br>
+                                                <span class="artist-genre">Hard Techno / Gabber Pop (Klicken für Info)</span>
+                                            </span>
+                                            <span class="artist-time">23:45 - 01:15</span>
+                                        </div>
+                                        <div class="bio-popup" id="bio-brutalismus3000">
+                                            <h5>Brutalismus 3000</h5>
+                                            <p>Das Duo aus Berlin, bekannt für die Verschmelzung von Hard Techno, New Wave und Gabber-Einflüssen. Ihre Tracks mit deutschen und slowakischen Vocals haben die Underground-Szene im Sturm erobert.</p>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="artist-info-row" onclick="toggleBio('bio-darkvortex')">
+                                            <span class="artist-name">
+                                                <strong>DARK VORTEX</strong><br>
+                                                <span class="artist-genre">Industrial Techno (Klicken für Info)</span>
+                                            </span>
+                                            <span class="artist-time">22:00 - 23:30</span>
+                                        </div>
+                                        <div class="bio-popup" id="bio-darkvortex">
+                                            <h5>Dark Vortex</h5>
+                                            <p>Dark Vortex liefert kompromisslosen, rohen Techno, fokussiert auf verzerrte Synthesizer und ständigen Vorwärtsdrang. Ein Meister des Peak-Time-Technos.</p>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="day-card" style="flex: 1 1 100%;">
+                        <h3><i class="fas fa-star-of-life"></i> FREITAG, 26. DEZEMBER (FINAL RAVE)</h3>
+                        
+                        <div style="display: flex; gap: 20px; flex-wrap: wrap;">
+                            
+                            <div class="stage-section" style="flex: 1 1 45%;">
+                                <h4><i class="fas fa-splotch"></i> FLOOR 1: TERROR CLOSING</h4>
+                                <ul class="artist-list">
+                                    <li class="headliner">
+                                        <div class="artist-info-row" onclick="toggleBio('bio-rotterdamerterrorcops')">
+                                            <span class="artist-name">
+                                                <strong>ROTTERDAM TERROR CORPS</strong><br>
+                                                <span class="artist-genre">Terror / Gabber (Closing Set) (Klicken für Info)</span>
+                                            </span>
+                                            <span class="artist-time">02:30 - ENDE</span>
+                                        </div>
+                                        <div class="bio-popup" id="bio-rotterdamerterrorcops">
+                                            <h5>Rotterdam Terror Corps</h5>
+                                            <p>Der legendäre Terror/Gabber-Act! Rotterdam Terror Corps sind bekannt für ihre extreme Härte. Sie liefern den absolut brachialen und kompromisslosen Abschluss des gesamten Festivals.</p>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="artist-info-row" onclick="toggleBio('bio-partyraiser')">
+                                            <span class="artist-name">
+                                                <strong>PARTYRAISER</strong><br>
+                                                <span class="artist-genre">Uptempo Hardcore / Terror (Klicken für Info)</span>
+                                            </span>
+                                            <span class="artist-time">01:00 - 02:15</span>
+                                        </div>
+                                        <div class="bio-popup" id="bio-partyraiser">
+                                            <h5>Partyraiser</h5>
+                                            <p>Der Meister des rasanten Party-Hardcores, bekannt für seine Geschwindigkeit und seinen unverkennbaren Style. Ein explosiver Act, der die BPM-Zahlen in schwindelerregende Höhen treibt.</p>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="artist-info-row" onclick="toggleBio('bio-deadlyguns')">
+                                            <span class="artist-name">
+                                                <strong>DEADLY GUNS</strong><br>
+                                                <span class="artist-genre">Hardcore / Xtra Raw (Klicken für Info)</span>
+                                            </span>
+                                            <span class="artist-time">23:30 - 00:45</span>
+                                        </div>
+                                        <div class="bio-popup" id="bio-deadlyguns">
+                                            <h5>Deadly Guns</h5>
+                                            <p>Deadly Guns ist bekannt für seinen Crossover-Sound aus Hardcore und Raw Hardstyle. Seine Tracks sind düster, basslastig und zielen direkt auf den Moshpit ab. Pure, unverfälschte Aggression.</p>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                            
+                            <div class="stage-section" style="flex: 1 1 45%;">
+                                <h4><i class="fas fa-dice-d6"></i> FLOOR 2: TRANCE / UPLIFTING FINALE</h4>
+                                <ul class="artist-list">
+                                    <li class="headliner meet-greet-act">
+                                        <div class="artist-info-row" onclick="toggleBio('bio-paulvandyk')">
+                                            <span class="artist-name">
+                                                <strong>PAUL VAN DYK</strong><br>
+                                                <span class="artist-genre">Trance / Classic EDM (Klicken für Info)</span>
+                                            </span>
+                                            <span class="artist-time">01:00 - 03:00</span>
+                                        </div>
+                                        <div class="bio-popup" id="bio-paulvandyk">
+                                            <h5>Paul van Dyk</h5>
+                                            <p>Einer der Pioniere der elektronischen Musik. Der deutsche Grammy-nominierte DJ Paul van Dyk ist eine globale Trance-Ikone. Seine Sets sind bekannt für ihre politische und soziale Tiefe sowie ihre musikalische Perfektion. Ein Set voller Klassiker und Gänsehautmomente.</p>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="artist-info-row" onclick="toggleBio('bio-noisecontrollers')">
+                                            <span class="artist-name">
+                                                <strong>NOISECONTROLLERS</strong><br>
+                                                <span class="artist-genre">Euphoric Hardstyle (Klicken für Info)</span>
+                                            </span>
+                                            <span class="artist-time">23:30 - 00:45</span>
+                                        </div>
+                                        <div class="bio-popup" id="bio-noisecontrollers">
+                                            <h5>Noisecontrollers</h5>
+                                            <p>Noisecontrollers, das Hardstyle-Duo, ist bekannt für einige der größten Hardstyle-Hymnen aller Zeiten. Ihre Musik ist melodisch, kraftvoll und wird von Fans weltweit gefeiert. Sie bringen Hardstyle-Energie auf den Trance-Floor.</p>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="artist-info-row" onclick="toggleBio('bio-miraflow')">
+                                            <span class="artist-name">
+                                                <strong>MIRA FLOW</strong><br>
+                                                <span class="artist-genre">Future Bass / Trap (Klicken für Info)</span>
+                                            </span>
+                                            <span class="artist-time">21:00 - 23:15</span>
+                                        </div>
+                                        <div class="bio-popup" id="bio-miraflow">
+                                            <h5>Mira Flow</h5>
+                                            <p>Mira Flow bringt frischen Wind in die EDM-Szene. Mit innovativen Sounds, die Future Bass und Trap mischen, sorgt sie für massive Drops und unwiderstehliche Grooves.</p>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+                
+                <p class="disclaimer">
+                    <i class="fas fa-info-circle"></i> Änderungen im Lineup und Zeitplan bleiben dem Veranstalter vorbehalten. Der Einlass beginnt täglich um 19:00 Uhr.
+                </p>
+
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-legal-links">
+                <a href="impressum.html" class="nav-button">IMPRESSUM</a>
+                <span>|</span>
+                <a href="datenschutz.html" class="nav-button">DATENSCHUTZ</a>
+            </div>
+
+            <p class="copyright">
+                (c) WinterlightFestival | WLF Event Management & Production GmbH
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        /**
+         * Schaltet die Sichtbarkeit der Biografie-Info-Tafel um.
+         * @param {string} id - Die ID des Bio-Popup-Elements (z.B. 'bio-angerfist').
+         */
+        function toggleBio(id) {
+            const bioElement = document.getElementById(id);
+            // Wenn die Bio sichtbar ist, verstecke sie.
+            if (bioElement.style.display === 'block') {
+                bioElement.style.display = 'none';
+            } else {
+                // Verstecke alle anderen Bio-Popups, um Überschneidungen zu vermeiden
+                document.querySelectorAll('.bio-popup').forEach(popup => {
+                    if (popup.id !== id) {
+                        popup.style.display = 'none';
+                    }
+                });
+                // Zeige die ausgewählte Bio.
+                bioElement.style.display = 'block';
+            }
+        }
+    </script>
+	<div class="audio-player">
+        <span><i class="fas fa-compact-disc"></i> Festival Mix:</span>
+        <audio controls loop>
+            <source src="mix.mp3" type="audio/mpeg">
+            Ihr Browser unterstützt das Audio-Element nicht.
+        </audio>
+    </div>
+</body>
+</html>

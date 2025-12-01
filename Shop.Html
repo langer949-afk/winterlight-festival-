@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shop & Merch | Winterlight Festival</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Krona+One&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <style>
+        /* [GRUNDSTIL & LAYOUT] */
+        body { 
+            font-family: 'Krona One', sans-serif; margin: 0; padding: 0; min-height: 100vh; 
+            background-color: #0d0d0d; color: #f0f0f0; text-align: center; line-height: 1.6; 
+        }
+        .container { width: 90%; max-width: 1200px; margin: 0 auto; padding: 20px 0; }
+        .main-content { 
+            background: rgba(13, 13, 13, 0.9); padding: 50px 20px; min-height: 70vh; 
+            margin-top: 50px; border: 2px solid #00fff2; 
+        }
+        h1 { color: #ff004c; font-size: 3em; letter-spacing: 5px; text-shadow: 0 0 10px rgba(255, 0, 76, 0.5); }
+        h2 { color: #00fff2; text-transform: uppercase; letter-spacing: 2px; margin-top: 20px; }
+        
+        /* [NAVIGATION STYLES] (Wie in Ticket.html) */
+        header { background-color: rgba(0, 0, 0, 0.75); padding: 20px 0; border-bottom: 5px solid #ff004c; }
+        .navigation { text-align: right; display: flex; justify-content: flex-end; gap: 10px; }
+        .nav-button { 
+            display: inline-block; background-color: transparent; color: #f0f0f0; padding: 10px 18px; 
+            text-decoration: none; text-transform: uppercase; font-weight: 700; letter-spacing: 1px; 
+            border: 2px solid #00fff2; transition: all 0.2s ease-in-out; box-shadow: 0 0 5px rgba(0, 255, 242, 0.5);
+        }
+        .nav-button:hover { background-color: #00fff2; color: black; border-color: #ff004c; transform: scale(1.05); box-shadow: 0 0 15px #ff004c; }
+        .shop-button { 
+            background-color: #ff004c; color: black; border: 2px solid #ff004c; 
+            font-weight: 900; transform: scale(1.05); box-shadow: 0 0 20px #ff004c;
+            cursor: default;
+        }
+
+        /* [SHOP GRID STYLING] */
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+            text-align: left;
+        }
+        .product-card {
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 20px;
+            border: 2px solid #00fff2;
+            border-radius: 5px;
+            box-shadow: 0 0 15px rgba(0, 255, 242, 0.2);
+            position: relative;
+        }
+        .product-card h3 {
+            color: #ff004c;
+            margin-top: 0;
+            font-size: 1.4em;
+        }
+        .placeholder-img {
+            width: 100%;
+            height: 180px;
+            background-color: #333;
+            border: 1px solid #ff004c;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 10px;
+            color: #00fff2;
+            font-size: 0.9em;
+        }
+        
+        /* Preisdetails */
+        .price-details {
+            font-size: 0.8em;
+            color: #ccc;
+            line-height: 1.2;
+            margin-bottom: 10px;
+        }
+        .price-details strong {
+            color: #00fff2;
+        }
+        .price-details .brutto {
+            font-size: 1.3em;
+            color: #f0f0f0;
+            display: block;
+            margin-top: 5px;
+        }
+
+        /* Varianten Auswahl */
+        .variants-select select {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            background-color: #444;
+            color: #f0f0f0;
+            border: 1px solid #00fff2;
+        }
+
+        /* Rabatt-Banner */
+        .discount-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: #ff004c;
+            color: black;
+            padding: 5px 10px;
+            font-size: 0.7em;
+            font-weight: bold;
+            z-index: 5;
+            transform: rotate(5deg);
+        }
+
+        /* Versandkosten Hinweis */
+        .shipping-info {
+            background-color: rgba(0, 255, 242, 0.1);
+            border: 1px solid #00fff2;
+            padding: 10px;
+            margin-top: 30px;
+            font-size: 0.9em;
+            color: #00fff2;
+        }
+        
+        /* Bestell-Button */
+        .add-to-cart {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #ff004c;
+            color: black;
+            text-align: center;
+            text-decoration: none;
+            font-weight: bold;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        .add-to-cart:hover {
+            background-color: #e60044;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <nav class="navigation">
+                <a href="index.html" class="nav-button"><i class="fas fa-home"></i> Home</a> 
+                <a href="shop.html" class="nav-button shop-button"><i class="fas fa-shopping-bag"></i> Shop / Merch</a>
+                <a href="galerie.html" class="nav-button"><i class="fas fa-images"></i> Galerie</a>
+                <a href="lineup.html" class="nav-button"><i class="fas fa-microphone-alt"></i> LINEUP</a>
+                <a href="Ticket.Html" class="nav-button"><i class="fas fa-ticket-alt"></i> TICKETS</a> 
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="main-content">
+            <div class="container">
+                <h1>OFFIZIELLER MERCH SHOP</h1>
+                <h2>Sichere dir dein Winterlight Andenken!</h2>
+                
+                <div class="shipping-info">
+                    <i class="fas fa-truck"></i> **WICHTIG:** Versandkostenfrei ab 50,00 € Bestellwert!
+                </div>
+                
+                <div class="product-grid">
+                    
+                    <div class="product-card">
+                        <div class="discount-badge">WINTER EDITION</div>
+                        <div class="placeholder-img">
+                            [Platzhalter: Hoodie Herren/Damen]
+                            <img src="shop_hoodie.jpg" alt="Winterlight Hoodie" style="display: none;">
+                        </div>
+                        <h3>WLF Premium Hoodie</h3>
+                        <div class="variants-select">
+                            <select><option disabled selected>Größe wählen (S-XXL)</option><option>S</option><option>M</option><option>L</option></select>
+                            <select><option disabled selected>Farbe wählen</option><option>Deep Black</option><option>Neon Blue</option><option>Grey</option></select>
+                            <select><option>Men's Cut</option><option>Women's Cut</option></select>
+                        </div>
+                        <div class="price-details">
+                            Netto: 50,33 € | MwSt. (19%): 9,56 €
+                            <span class="brutto">59,89 €</span>
+                        </div>
+                        <a href="bestaetigung_shop.html" class="add-to-cart">In den Warenkorb</a>
+                    </div>
+                    
+                    <div class="product-card">
+                        <div class="discount-badge">SOMMER SALE!</div>
+                        <div class="placeholder-img">
+                            [Platzhalter: T-Shirt Neon]
+                            <img src="shop_tshirt.jpg" alt="Neon T-Shirt" style="display: none;">
+                        </div>
+                        <h3>Neon Lineup T-Shirt</h3>
+                        <div class="variants-select">
+                            <select><option disabled selected>Größe wählen (S-XXL)</option><option>M</option><option>L</option></select>
+                            <select><option disabled selected>Farbe wählen</option><option>Neon Green</option><option>Neon Pink</option><option>Black</option></select>
+                            <select><option>Unisex</option><option>Women's Slim Fit</option></select>
+                        </div>
+                        <div class="price-details">
+                            Netto: 21,00 € | MwSt. (19%): 3,99 €
+                            <span class="brutto">24,99 €</span>
+                        </div>
+                        <a href="bestaetigung_shop.html" class="add-to-cart">In den Warenkorb</a>
+                    </div>
+                    
+                    <div class="product-card">
+                        <div class="placeholder-img">
+                            [Platzhalter: Festival Shorts]
+                            <img src="shop_shorts.jpg" alt="Shorts" style="display: none;">
+                        </div>
+                        <h3>Festival Quick-Dry Shorts</h3>
+                        <div class="variants-select">
+                            <select><option disabled selected>Größe wählen (XS-XL)</option><option>XS</option><option>M</option><option>L</option></select>
+                            <select><option disabled selected>Farbe wählen</option><option>Black</option><option>White</option><option>Camo</option></select>
+                            <select><option>Unisex</option></select>
+                        </div>
+                        <div class="price-details">
+                            Netto: 25,20 € | MwSt. (19%): 4,79 €
+                            <span class="brutto">29,99 €</span>
+                        </div>
+                        <a href="bestaetigung_shop.html" class="add-to-cart">In den Warenkorb</a>
+                    </div>
+
+                    <div class="product-card">
+                         <div class="discount-badge">BLACK WEEK!</div>
+                        <div class="placeholder-img">
+                            [Platzhalter: Bauchtasche]
+                            <img src="shop_fannypack.jpg" alt="Bauchtasche" style="display: none;">
+                        </div>
+                        <h3>Security Bauchtasche</h3>
+                        <div class="variants-select">
+                            <select><option disabled selected>Farbe wählen</option><option>Transparant</option><option>Black</option><option>Neon Yellow</option></select>
+                        </div>
+                        <div class="price-details">
+                            Netto: 14,28 € | MwSt. (19%): 2,72 €
+                            <span class="brutto">16,99 €</span>
+                        </div>
+                        <a href="bestaetigung_shop.html" class="add-to-cart">In den Warenkorb</a>
+                    </div>
+                    
+                    <div class="product-card">
+                        <div class="placeholder-img">
+                            [Platzhalter: Festival Flaggen]
+                            <img src="shop_flag.jpg" alt="Festival Flagge" style="display: none;">
+                        </div>
+                        <h3>WLF XL Flagge (150x90cm)</h3>
+                        <div class="variants-select">
+                            <select><option disabled selected>Aussehen wählen</option><option>Motiv 'Lightwave'</option><option>Motiv 'Logo Classic'</option><option>Motiv 'Glow in Dark'</option></select>
+                        </div>
+                        <div class="price-details">
+                            Netto: 16,80 € | MwSt. (19%): 3,19 €
+                            <span class="brutto">19,99 €</span>
+                        </div>
+                        <a href="bestaetigung_shop.html" class="add-to-cart">In den Warenkorb</a>
+                    </div>
+                    
+                    <div class="product-card">
+                        <div class="placeholder-img">
+                            [Platzhalter: Strandtuch]
+                            <img src="shop_towel.jpg" alt="Handtuch" style="display: none;">
+                        </div>
+                        <h3>XL Strandtuch / Badetuch</h3>
+                        <div class="variants-select">
+                            <select><option disabled selected>Farbe wählen</option><option>Blue/Pink</option><option>Black/White</option><option>Full Colour</option></select>
+                        </div>
+                        <div class="price-details">
+                            Netto: 19,32 € | MwSt. (19%): 3,67 €
+                            <span class="brutto">22,99 €</span>
+                        </div>
+                        <a href="bestaetigung_shop.html" class="add-to-cart">In den Warenkorb</a>
+                    </div>
+
+                    <div class="product-card">
+                        <div class="placeholder-img">
+                            [Platzhalter: Keramik Tasse]
+                            <img src="shop_mug.jpg" alt="Tasse" style="display: none;">
+                        </div>
+                        <h3>Coffee Tasse (Keramik)</h3>
+                        <div class="variants-select">
+                            <select><option disabled selected>Motiv wählen</option><option>Classic Logo</option><option>All-Over Print</option></select>
+                        </div>
+                        <div class="price-details">
+                            Netto: 10,08 € | MwSt. (19%): 1,91 €
+                            <span class="brutto">11,99 €</span>
+                        </div>
+                        <a href="bestaetigung_shop.html" class="add-to-cart">In den Warenkorb</a>
+                    </div>
+                    
+                    <div class="product-card">
+                        <div class="placeholder-img">
+                            [Platzhalter: Gym Bag]
+                            <img src="shop_gymbag.jpg" alt="Gym Bag" style="display: none;">
+                        </div>
+                        <h3>Gym Bag (Stoffbeutel)</h3>
+                        <div class="variants-select">
+                            <select><option disabled selected>Farbe wählen</option><option>Neon Orange</option><option>Black</option></select>
+                        </div>
+                        <div class="price-details">
+                            Netto: 8,40 € | MwSt. (19%): 1,60 €
+                            <span class="brutto">10,00 €</span>
+                        </div>
+                        <a href="bestaetigung_shop.html" class="add-to-cart">In den Warenkorb</a>
+                    </div>
+                    
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>(c) WinterlightFestival | WLF Event Management & Production GmbH</p>
+        </div>
+    </footer>
+</body>
+</html>

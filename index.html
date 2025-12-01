@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Startseite | Winterlight Festival</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Krona+One&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <style>
+        /* Grundstil & Layout */
+        body { 
+            font-family: 'Krona One', sans-serif; 
+            margin: 0; 
+            padding: 0; 
+            min-height: 100vh; 
+            background-color: #0d0d0d; 
+            color: #f0f0f0; 
+            text-align: center; 
+            line-height: 1.6; 
+            position: relative; 
+        }
+        .hintergrund-bild { 
+            position: absolute; top: 0; left: 0; width: 100%; min-height: 100%; z-index: -1; 
+            background-image: url('Winterlight Festival.png'); 
+            background-size: cover; background-position: center center;
+            background-repeat: no-repeat; background-attachment: scroll; 
+            filter: brightness(1.2); 
+        }
+        .container { 
+            width: 90%; 
+            max-width: 1200px; 
+            margin: 0 auto; 
+            padding: 20px 0; 
+        }
+        
+        /* Navigation Styles */
+        header { background-color: rgba(0, 0, 0, 0.6); padding: 20px 0; border-bottom: 5px solid #ff004c; }
+        .navigation { text-align: right; padding-right: 20px; }
+        .nav-button { display: inline-block; background-color: #ff004c; color: black; padding: 15px 25px; margin: 0 5px; text-decoration: none; text-transform: uppercase; font-weight: 900; letter-spacing: 1px; border-radius: 0; border: none; transition: background-color 0.2s, transform 0.2s; box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); }
+        .nav-button:hover { background-color: #00fff2; color: black; transform: translateY(-5px); box-shadow: 0 0 20px #00fff2; }
+        
+        /* Aktuelle Seite Button-Styles */
+        .home-button { background-color: #00fff2; color: black; border: 2px solid #ff004c; }
+
+        /* Hauptinhalt Startseite */
+        .main-content { 
+            background: rgba(13, 13, 13, 0.9); 
+            padding: 100px 20px; 
+            min-height: 70vh; 
+            margin-top: 50px; 
+            border: 2px solid #00fff2; 
+        }
+        h1 { 
+            color: #ff004c; 
+            font-size: 3em; 
+            letter-spacing: 5px; 
+            text-shadow: 0 0 10px rgba(255, 0, 76, 0.5);
+        }
+        h2 { 
+            color: #00fff2; 
+            text-transform: uppercase; 
+            letter-spacing: 2px; 
+            margin-top: 20px;
+        }
+        .intro-text {
+            font-family: sans-serif;
+            font-size: 1.2em;
+            margin-top: 40px;
+            color: #ccc;
+        }
+        
+        /* GLOBALER AUDIO-PLAYER (Statisch) */
+        .audio-player {
+            position: static; 
+            margin-top: 50px; 
+            margin-bottom: 20px;
+            background-color: #ff004c; 
+            color: black;
+            padding: 10px 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+            z-index: 1; 
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: sans-serif;
+            font-size: 0.9em;
+            width: 100%;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+            border-radius: 5px;
+        }
+
+        .audio-player audio {
+            width: 300px; 
+            height: 30px;
+            margin-right: 0; 
+            margin-left: 15px;
+        }
+        
+        /* Footer */
+        footer { 
+            margin-top: 50px; 
+            padding: 20px 0; 
+            background-color: rgba(0, 0, 0, 0.6); 
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="hintergrund-bild"></div>
+
+    <header>
+        <div class="container">
+            <nav class="navigation">
+                <a href="index.html" class="nav-button home-button">Home</a> 
+                <a href="shop.html" class="nav-button">Shop / Merch</a>
+                <a href="Ticket.Html" class="nav-button">TICKETS</a>
+                <a href="galerie.html" class="nav-button">Galerie</a>
+                <a href="lineup.html" class="nav-button">LINEUP</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="main-content">
+            <div class="container">
+                <h1>WINTERLIGHT FESTIVAL</h1>
+                <h2>Das härteste Rave-Event der Feiertage</h2>
+                
+                <p class="intro-text">
+                    Erlebe vom **24. bis 26. Dezember** drei Nächte voller Hardcore, Hardstyle, Trance und Techno. 
+                    Sichere dir jetzt deine Tickets über den Button oben oder entdecke das volle Lineup und die Galerie.
+                </p>
+                
+                <div class="audio-player">
+                    <span><i class="fas fa-compact-disc"></i> Festival Hymne:</span>
+                    <audio controls>
+                        <source src="Winterlight Festival Hymne.mp3" type="audio/mpeg">
+                        <source src="Winterlight Festival Hymne.ogg" type="audio/ogg">
+                        Ihr Browser unterstützt das Audio-Element nicht.
+                    </audio>
+                </div>
+                
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-legal-links">
+                <a href="impressum.html" class="nav-button">IMPRESSUM</a>
+                <span>|</span>
+                <a href="datenschutz.html" class="nav-button">DATENSCHUTZ</a>
+            </div>
+
+            <p class="copyright">
+                (c) WinterlightFestival | WLF Event Management & Production GmbH
+            </p>
+        </div>
+    </footer>
+</body>
+</html>
